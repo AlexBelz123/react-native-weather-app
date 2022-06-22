@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, ImageBackground } from 'react-native';
-import ForecastSearch from './components/ForecastSearch';
+import Search from './components/Search';
 import CurrentForecast from './components/CurrentForecast';
 import DailyForecast from './components/DailyForecast';
 import styled from 'styled-components/native';
 import config from './config';
 import bgImg from './assets/weather-bg.jpg';
+
+// styles
+const Container = styled.View`
+  flex: 1;
+  background-color: dodgerblue;
+`;
+
+const NoWeather = styled.Text`
+  text-align: center;
+  color: white;
+`;
+
+const FutureForecastContainer = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const App = () => {
   const [toggleSearch, setToggleSearch] = useState('city');
@@ -61,7 +78,7 @@ const App = () => {
   return (
     <Container>
       <ImageBackground source={bgImg} style={{ width: '100%', height: '100%' }}>
-        <ForecastSearch
+        <Search
           city={city}
           setCity={setCity}
           fetchLatLongHandler={fetchLatLongHandler}
@@ -89,21 +106,5 @@ const App = () => {
     </Container>
   );
 };
-
-const Container = styled.View`
-  flex: 1;
-  background-color: dodgerblue;
-`;
-
-const NoWeather = styled.Text`
-  text-align: center;
-  color: white;
-`;
-
-const FutureForecastContainer = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 export default App;

@@ -1,30 +1,7 @@
-import React from "react";
-import { Text } from "react-native";
-import styled from "styled-components/native";
-import moment from "moment";
-
-const DailyForecast = ({ day, index }) => {
-  return (
-    <DayContainer>
-      <DateContainer>
-        <WeekDay>{moment(day.dt * 1000).format("ddd")}</WeekDay>
-      </DateContainer>
-      <IconTempView>
-        <WeatherIcon
-          source={{
-            uri: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
-          }}
-          resizeMode={"contain"} // cover or contain its upto you view look
-        />
-        <Text>{day.weather[0].description}</Text>
-      </IconTempView>
-      <DegreeView>
-        <Degree>{Math.round(day.temp.max)}°C</Degree>
-        <FeelsLike>Feels {Math.round(day.feels_like.day)}°C</FeelsLike>
-      </DegreeView>
-    </DayContainer>
-  );
-};
+import React from 'react';
+import { Text } from 'react-native';
+import styled from 'styled-components/native';
+import moment from 'moment';
 
 const DayContainer = styled.View`
   padding: 10px;
@@ -76,5 +53,28 @@ const Degree = styled.Text`
 const FeelsLike = styled.Text`
   font-size: 14px;
 `;
+
+const DailyForecast = ({ day, index }) => {
+  return (
+    <DayContainer>
+      <DateContainer>
+        <WeekDay>{moment(day.dt * 1000).format('ddd')}</WeekDay>
+      </DateContainer>
+      <IconTempView>
+        <WeatherIcon
+          source={{
+            uri: `http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`,
+          }}
+          resizeMode={'contain'} // cover or contain its upto you view look
+        />
+        <Text>{day.weather[0].description}</Text>
+      </IconTempView>
+      <DegreeView>
+        <Degree>{Math.round(day.temp.max)}°C</Degree>
+        <FeelsLike>Feels {Math.round(day.feels_like.day)}°C</FeelsLike>
+      </DegreeView>
+    </DayContainer>
+  );
+};
 
 export default DailyForecast;

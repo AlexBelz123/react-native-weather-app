@@ -1,8 +1,8 @@
-import React from "react";
-import { View, Text, TextInput } from "react-native";
-import styled from "styled-components/native";
+import React from 'react';
+import { View, Text, TextInput } from 'react-native';
+import styled from 'styled-components/native';
 
-const ForecastSearch = ({
+const Search = ({
   toggleSearch,
   setToggleSearch,
   city,
@@ -13,20 +13,20 @@ const ForecastSearch = ({
   postalCode,
 }) => {
   const handleSubmit = (e) => {
-    if (toggleSearch === "city") {
+    if (toggleSearch === 'city') {
       fetchLatLongHandler();
     }
-    if (toggleSearch === "postal") {
+    if (toggleSearch === 'postal') {
       fetchByPostalHandler();
     }
   };
 
   const setToggleByCity = () => {
-    setToggleSearch("city");
+    setToggleSearch('city');
   };
 
   const setToggleByPostal = () => {
-    setToggleSearch("postal");
+    setToggleSearch('postal');
   };
 
   return (
@@ -35,23 +35,23 @@ const ForecastSearch = ({
         <ButtonLabel>Search By</ButtonLabel>
         <Buttons
           title="City"
-          color={toggleSearch === "city" ? "white" : "rgba(255, 255, 255, 0.6)"}
+          color={toggleSearch === 'city' ? 'white' : 'rgba(255, 255, 255, 0.6)'}
           accessibilityLabel="Search Weather By City"
           onPress={setToggleByCity}
         />
         <Buttons
           title="Postal Code/Zip"
-          color={toggleSearch === "city" ? "rgba(255, 255, 255, 0.6)" : "white"}
+          color={toggleSearch === 'city' ? 'rgba(255, 255, 255, 0.6)' : 'white'}
           accessibilityLabel="Search Weather By ZIP/Postal Code"
           onPress={setToggleByPostal}
         />
       </SearchBy>
 
       <SearchCity
-        onChangeText={toggleSearch === "city" ? setCity : setPostalCode}
-        value={toggleSearch === "city" ? city : postalCode}
+        onChangeText={toggleSearch === 'city' ? setCity : setPostalCode}
+        value={toggleSearch === 'city' ? city : postalCode}
         placeholder={
-          toggleSearch === "city" ? "Search By City" : "Search By Postal Code"
+          toggleSearch === 'city' ? 'Search By City' : 'Search By Postal Code'
         }
         onSubmitEditing={handleSubmit}
       />
@@ -97,4 +97,4 @@ const SearchCity = styled.TextInput`
   max-width: 700px;
 `;
 
-export default ForecastSearch;
+export default Search;
