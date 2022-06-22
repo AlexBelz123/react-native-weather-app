@@ -6,6 +6,7 @@ import DailyForecast from './components/DailyForecast';
 import styled from 'styled-components/native';
 import config from './config';
 import bgImg from './assets/weather-bg.jpg';
+import { IWeather } from './types';
 
 // styles
 const Container = styled.View`
@@ -30,7 +31,7 @@ const App = () => {
   const [postalCode, setPostalCode] = useState('79007');
   const [lat, setLat] = useState(49.839);
   const [long, setLong] = useState(24.0191);
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState<IWeather | null>(null);
 
   const controller = new AbortController();
   const signal = controller.signal;
@@ -40,7 +41,13 @@ const App = () => {
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${config.API_KEY}`
     )
-      .then((res) => res.json())
+      .then(
+        (res) => res.json(),
+        (err) => {
+          // handle error here (can create error boundary or some ui component)
+          console.log(err);
+        }
+      )
       .then((data) => {
         setLat(data.coord.lat);
         setLong(data.coord.lon);
@@ -52,14 +59,20 @@ const App = () => {
     fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?key=${config.GOOGLE_KEY}&components=postal_code:${postalCode}`
     )
-      .then((res) => res.json())
+      .then(
+        (res) => res.json(),
+        (err) => {
+          // handle error here (can create error boundary or some ui component)
+          console.log(err);
+        }
+      )
       .then((data) => {
         setLat(data.results[0].geometry.location.lat);
         setLong(data.results[0].geometry.location.lng);
       });
   };
 
-  //updates the weather when lat long changes
+  // updates the weather when lat long changes
   useEffect(() => {
     fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=hourly,minutely&units=metric&appid=${config.API_KEY}`,
@@ -75,6 +88,10 @@ const App = () => {
     return () => controller.abort();
   }, [lat, long]);
 
+  if (!weather) {
+    return <NoWeather>No Weather to show</NoWeather>;
+  }
+
   return (
     <Container>
       <ImageBackground source={bgImg} style={{ width: '100%', height: '100%' }}>
@@ -88,7 +105,7 @@ const App = () => {
           setPostalCode={setPostalCode}
           postalCode={postalCode}
         />
-        <CurrentForecast currentWeather={weather} timezone={weather.timezone} />
+        <CurrentForecast currentWeather={weather} />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1 }}>
           <FutureForecastContainer>
             {weather.daily ? (
