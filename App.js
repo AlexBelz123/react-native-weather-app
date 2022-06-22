@@ -94,7 +94,7 @@ const App = () => {
             {weather.daily ? (
               weather.daily.map((day, index) => {
                 if (index !== 0) {
-                  return <DailyForecast key={day.dt} day={day} index={index} />;
+                  return <DailyForecast key={day.dt} day={day} />;
                 }
               })
             ) : (

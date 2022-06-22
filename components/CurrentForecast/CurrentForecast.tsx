@@ -13,8 +13,15 @@ import {
   Label,
   Details,
 } from './style';
+import { IWeather } from '../../types';
 
-const CurrentForecast = ({ currentWeather }) => {
+interface CurrentForecastProps {
+  currentWeather: IWeather;
+}
+
+const CurrentForecast: React.FC<CurrentForecastProps> = ({
+  currentWeather,
+}) => {
   return (
     <CurrentView>
       <Timezone>{currentWeather.timezone}</Timezone>
@@ -81,7 +88,7 @@ const CurrentForecast = ({ currentWeather }) => {
           <DetailsBox>
             <Label>Rain</Label>
             <Details>
-              {currentWeather.daily > 0 ? currentWeather.daily[0].rain : '0'} MM
+              {currentWeather.daily ? currentWeather.daily[0].pop : 0} MM
             </Details>
           </DetailsBox>
         </Row>

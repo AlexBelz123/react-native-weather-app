@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
 import moment from 'moment';
+import { IDailyForecast } from '../types';
 
 const DayContainer = styled.View`
   padding: 10px;
@@ -54,7 +55,11 @@ const FeelsLike = styled.Text`
   font-size: 14px;
 `;
 
-const DailyForecast = ({ day, index }) => {
+interface DailyForecastProps {
+  day: IDailyForecast;
+}
+
+const DailyForecast: React.FC<DailyForecastProps> = ({ day }) => {
   return (
     <DayContainer>
       <DateContainer>

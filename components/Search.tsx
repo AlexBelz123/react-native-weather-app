@@ -2,7 +2,18 @@ import React from 'react';
 import { View, Text, TextInput } from 'react-native';
 import styled from 'styled-components/native';
 
-const Search = ({
+interface SearchProps {
+  toggleSearch: string;
+  setToggleSearch: (p: string) => void;
+  city: string;
+  setCity: (p: string) => void;
+  fetchLatLongHandler: () => void;
+  fetchByPostalHandler: () => void;
+  setPostalCode: (p: string) => void;
+  postalCode: string;
+}
+
+const Search: React.FC<SearchProps> = ({
   toggleSearch,
   setToggleSearch,
   city,
